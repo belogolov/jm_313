@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <br/>
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <form th:action="@{/login}" method="POST" modelAttribute="loginForm" class="form-signin">
+                <h2 th:text="'Please sign in'" class="form-heading"></h2>
+
+                <input type="text" id="email" name="email" value="" th:placeholder="Username"
+                       class="form-control"/>
+                <input type="password" id="password" name="password" value="" th:placeholder="Password"
+                       class="form-control"/>
+                <br/>
+                <div align="center" th:if="${param.error}">
+                    <p style="font-size: 20px; color: #FF1C19;">Email or Password invalid, please verify</p>
+                </div>
+                <button name="Submit" type="Submit" th:text="'Sign in'"
+                        class="btn btn-lg btn-primary btn-block"></button>
+            </form>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+
+</div>
+</body>
+</html>
