@@ -35,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/login")
                 .successHandler(new LoginSuccessHandler())
-//                .failureHandler(new LoginFailureHandler())
                 .loginProcessingUrl("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
@@ -50,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login")
                 .permitAll()
-                .antMatchers("/user/**").hasAuthority("USER")
+                .antMatchers("/user", "/user/*").hasAuthority("USER")
                 .antMatchers("/user/**", "/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
 

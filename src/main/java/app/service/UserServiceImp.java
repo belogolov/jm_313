@@ -2,7 +2,6 @@ package app.service;
 
 import app.model.Role;
 import app.model.User;
-import app.repository.RoleRepository;
 import app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -18,13 +17,13 @@ import java.util.Set;
 public class UserServiceImp implements UserService {
 
     private final UserRepository userRepo;
-    private final RoleRepository roleRepo;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImp(UserRepository userRepo, RoleRepository roleRepo, @Lazy PasswordEncoder passwordEncoder) {
+    public UserServiceImp(UserRepository userRepo, RoleService roleService, @Lazy PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
-        this.roleRepo = roleRepo;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -32,9 +31,9 @@ public class UserServiceImp implements UserService {
     @Override
     public void add(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (user == null || user.getRoles().size() == 0) {
+        if (user.getRoles() == null || user.getRoles().size() == 0) {
             Set<Role> roles = new HashSet<>();
-            roles.add(roleRepo.findById(2L).get());
+            roles.add(roleService.getRoleById(2L));
             user.setRoles(roles);
         }
         userRepo.save(user);
@@ -71,15 +70,5 @@ public class UserServiceImp implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepo.findByEmail(email);
-    }
-
-    @Override
-    public List<Role> getRoles() {
-        return roleRepo.findAll();
-    }
-
-    @Override
-    public Role getRoleById(Long id) {
-        return roleRepo.findById(id).get();
     }
 }

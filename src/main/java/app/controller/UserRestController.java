@@ -1,4 +1,4 @@
-package app.rest;
+package app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import app.model.User;
 import app.service.UserService;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/user/")
 public class UserRestController {
     private final UserService userService;
 

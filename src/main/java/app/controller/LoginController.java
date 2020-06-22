@@ -33,6 +33,6 @@ public class LoginController {
 			model.addAttribute("message", "Logged out successfully.");
 		}
 
-		return "login2";
+		return "login";
 	}
 }
